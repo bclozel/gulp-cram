@@ -1,0 +1,41 @@
+{
+    "name": "gulp-cram",
+    "version": "0.0.1",
+    "description": "Assemble resources using cujoJS cram",
+    "license": "MIT",
+    "repository": "git://github.com/bclozel/gulp-cram",
+    "author": {
+        "name": "Brian Clozel",
+        "email": "bclozel@gopivotal.com",
+        "url": "http://spring.io"
+    },
+    "engines": {
+        "node": ">=0.10"
+    },
+    "scripts": {
+        "test": "bower install && mocha"
+    },
+    "files": [
+        "index.js"
+    ],
+    "keywords": [
+        "gulpplugin",
+        "cram",
+        "cujoJS",
+        "assemble"
+    ],
+    "dependencies": {
+        "gulp-util": "~2.2.0",
+        "vinyl": "~0.2.3",
+        "through": "~2.3.4",
+        "cram": "https://github.com/cujojs/cram/tarball/dev",
+        "when": "~2.8.0"
+    },
+    "devDependencies": {
+        "bower": "~1.2.8",
+        "gulp": "~3.5.0",
+        "event-stream": "~3.1.0",
+        "should": "~3.1.2",
+        "mocha": "*"
+    }
+}

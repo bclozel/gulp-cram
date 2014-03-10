@@ -1,0 +1,11 @@
+{
+    "name": "gulp-cram",
+    "version": "0.0.1",
+    "main": "index.js",
+    "ignore": [
+        "test/**"
+    ],
+    "devDependencies": {
+        "curl": "0.8.9"
+    }
+}
