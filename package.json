@@ -28,7 +28,7 @@
         "gulp-util": "~2.2.0",
         "vinyl": "~0.2.3",
         "through": "~2.3.4",
-        "cram": "https://github.com/cujojs/cram/tarball/dev",
+        "cram": "~0.8.0",
         "when": "~2.8.0"
     },
     "devDependencies": {
