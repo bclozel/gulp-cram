@@ -1,3 +1,4 @@
 {
-  "directory": "test/fixtures"
+  "directory": "test/fixtures",
+  "interactive": false
 }
