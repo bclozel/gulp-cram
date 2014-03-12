@@ -1,10 +1,10 @@
 'use strict';
-var gutil = require('gulp-util');
 var es = require("event-stream");
 var path = require("path");
-var fs = require("fs");
+var fs = require("graceful-fs");
 var should = require("should");
 var cram = require('../index');
+var stream = require('stream');
 
 describe('cram()', function () {
 
@@ -12,22 +12,27 @@ describe('cram()', function () {
         return cram(input, opts).into(output);
     }
 
-    function expect(filenames) {
-        var expectedFiles = [].concat(filenames).map(function(filename) {
-            return path.join(__dirname, filename);
-        });
+    function expect(check) {
+
+        var checkFileName = function(filename) {
+            return function(file) {
+                path.join(__dirname, filename).should.be.eql(file.path);
+            }
+        };
+
+        var verify = (typeof check === "string") ? checkFileName(check) : check;
 
         function run(input, opts, output, done) {
             var stream = streamFromCram(input, opts, output);
-            var srcFiles = [];
+            var resultFile;
 
             stream.on("end", function(){
-                srcFiles.should.be.eql(expectedFiles);
+                verify(resultFile);
                 done();
             });
 
             stream.pipe(es.map(function(file, callback){
-                srcFiles.push(file.path);
+                resultFile = file;
                 callback();
             }));
         }
@@ -41,19 +46,23 @@ describe('cram()', function () {
         }
     }
 
-    it('should cram resources into a bundle', function (done) {
-        expect([
+    it('should cram resources into a bundle with the right name', function (done) {
+        expect(
             "../out.js"
-        ]).fromCram("./test/fixtures/run.js", {}, "./out.js").when(done);
+        ).fromCram("./test/fixtures/run.js", {}, "./out.js").when(done);
+    });
+
+    it('should cram resources into a bundle, using loaders', function (done) {
+        var opts = { includes: [ 'curl/loader/legacy', 'curl/loader/cjsm11' ]};
+        expect("../out.js").fromCram("./test/fixtures/run.js", opts, "./out.js").when(done);
     });
 
     it('should not leave out a temporary file', function (done) {
         cram("./test/fixtures/run.js", {}).into("./out.js")
             .on("end", function(){
-                fs.existsSync(path.resolve("./out.js")).should.be.false;
+                fs.existsSync(path.resolve("./gulpcram.js")).should.be.false;
                 done();
         });
-
     });
 
     it("should throw an exception if output filename is not provided", function(done) {

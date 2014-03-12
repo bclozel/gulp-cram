@@ -1,6 +1,6 @@
 'use strict';
 var path = require('path');
-var fs = require('fs');
+var fs = require('graceful-fs');
 var File = require('vinyl');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
@@ -45,7 +45,6 @@ var cramSrc = function(filename, opts) {
             if(!fs.existsSync(cramOutput)) {
                 throw new PluginError(PLUGIN_NAME, "missing temporary cram output file: "+cramOutput);
             }
-
 
             var readStream = fs.createReadStream(cramOutput);
             // unlink cram temp file once it's entirely read
