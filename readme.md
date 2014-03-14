@@ -76,7 +76,7 @@ gulp.task('default', function () {
 
 ## API
 
-### cram(grokfile, options).into(output)
+### cram(grokfile, options).into(output, readOptions)
 
 #### grokfile
 
@@ -124,6 +124,20 @@ Type: `String`
 
 Accepts a string indicating path and name of the file to be streamed.
 
+#### readOptions
+
+Type: `Object`
+
+A JavaScript object like:
+
+```js
+var options = {
+
+    // A boolean that indicates if the result should be a buffer or a stream
+    // Default value is 'true', so a buffer
+    buffer: true
+}
+```
 
 ## License
 

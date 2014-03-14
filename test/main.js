@@ -8,8 +8,8 @@ var stream = require('stream');
 
 describe('cram()', function () {
 
-    function streamFromCram(input, opts, output) {
-        return cram(input, opts).into(output);
+    function streamFromCram(input, opts, output, readOpt) {
+        return cram(input, opts).into(output, readOpt);
     }
 
     function expect(check) {
@@ -22,8 +22,8 @@ describe('cram()', function () {
 
         var verify = (typeof check === "string") ? checkFileName(check) : check;
 
-        function run(input, opts, output, done) {
-            var stream = streamFromCram(input, opts, output);
+        function run(input, opts, output, readOpt, done) {
+            var stream = streamFromCram(input, opts, output, readOpt);
             var resultFile;
 
             stream.on("end", function(){
@@ -38,18 +38,31 @@ describe('cram()', function () {
         }
 
         return {
-            fromCram: function(input, opts, output) {
+            fromCram: function(input, opts, output, readOpt) {
                 return {
-                    when: function(done) { run(input, opts, output, done); }
+                    when: function(done) { run(input, opts, output, readOpt, done); }
                 }
             }
         }
     }
 
     it('should cram resources into a bundle with the right name', function (done) {
-        expect(
-            "../out.js"
-        ).fromCram("./test/fixtures/run.js", {}, "./out.js").when(done);
+        expect("../out.js").fromCram("./test/fixtures/run.js", {}, "./out.js").when(done);
+    });
+
+    it('should cram resources and return a buffer by default', function (done) {
+        var checkBuffer = function(file) {
+            file.isBuffer().should.be.true;
+        };
+        expect(checkBuffer).fromCram("./test/fixtures/run.js", {}, "./out.js").when(done);
+    });
+
+    it('should cram resources and return a ReadStream if specified', function (done) {
+        var readOpts = {buffer:false};
+        var checkStream = function(file) {
+            file.isStream().should.be.true;
+        };
+        expect(checkStream).fromCram("./test/fixtures/run.js", {}, "./out.js", readOpts).when(done);
     });
 
     it('should cram resources into a bundle, using loaders', function (done) {
