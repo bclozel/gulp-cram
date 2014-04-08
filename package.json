@@ -1,6 +1,6 @@
 {
     "name": "gulp-cram",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Assemble resources using cujoJS cram",
     "license": "MIT",
     "repository": "git://github.com/bclozel/gulp-cram",
@@ -25,18 +25,18 @@
         "assemble"
     ],
     "dependencies": {
-        "gulp-util": "~2.2.0",
-        "vinyl": "~0.2.3",
-        "through": "~2.3.4",
-        "cram": "~0.8.2",
-        "graceful-fs": "~2.0.2",
-        "when": "~2.8.0"
+        "gulp-util": "~2.2.14",
+        "vinyl": "0.2.3",
+        "through": "2.3.4",
+        "cram": "0.8.2",
+        "graceful-fs": "2.0.3",
+        "when": "3.1.0"
     },
     "devDependencies": {
-        "bower": "~1.3.1",
-        "gulp": "~3.5.5",
-        "event-stream": "~3.1.0",
-        "should": "~3.1.2",
+        "bower": "1.3.2",
+        "gulp": "3.6.0",
+        "event-stream": "3.1.1",
+        "should": "3.2.0",
         "mocha": "*"
     }
 }
