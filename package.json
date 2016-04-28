@@ -29,7 +29,7 @@
         "vinyl": "0.2.3",
         "through": "2.3.4",
         "cram": "0.8.2",
-        "graceful-fs": "2.0.3",
+        "graceful-fs": "^4.0.0",
         "when": "3.1.0"
     },
     "devDependencies": {
